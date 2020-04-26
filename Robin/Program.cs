@@ -15,23 +15,31 @@ namespace Robin
             List<RedditChildData> posts = await reddit.FetchUnixpornPosts();
             foreach (var post in posts)
             {
-                Console.WriteLine(post.Title);
+                // Check that title contains [i3-gaps] etc.
+                if (post.Title.Split('[', ']').Length >= 3)
+                {
+                    if (!db.Items.Any(i => i.RedditId == post.Id))
+                    {
+                        db.Add(new Item {
+                            Title = post.Title,
+                            Url = post.Permalink,
+                            ImgUrl = post.Url.ToString(),
+                            Author = post.Author,
+                            Category = post.Title.Split('[', ']')[1],
+                            RedditId = post.Id,
+                            Score = post.Score,
+                            CreatedUtc = post.CreatedUtc,
+                            AddedUtc = DateTime.UtcNow.Ticks
+                        });
+                        Console.WriteLine("Added: " + post.Title);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Skipped: " + post.Title);
+                    }
+                }
             }
-
-            // db.Add(new Item {
-            //     Title = "test",
-            //     Url = "test",
-            //     ImgUrl = "test",
-            //     Author = "test",
-            //     Category = "test",
-            //     RedditId = "test",
-            //     Score = 1,
-            //     CreatedUtc = 1,
-            //     AddedUtc = 1,
-            // });
-            // db.SaveChanges();
-
-            Console.WriteLine("Hello World!");
+            db.SaveChanges();
         }
     }
 }
