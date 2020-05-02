@@ -1,4 +1,9 @@
 @page
+@using Batman
+@{
+  MainController mc = new MainController();
+  string[] urls = mc.RandomImageUrlPair();
+}
 <!DOCTYPE html>
 <html lang="fi">
   <head>
@@ -13,46 +18,47 @@
     <script defer src="/build.js" type="text/javascript"></script>
   </head>
   <body class="d-flex flex-column min-vh-100">
-    <nav id="aup-navbar" class="navbar navbar-expand-md bg-primary navbar-dark">
-      <div id="aup-navbar-box" class="container">
-        <a class="navbar-brand" href="#">Awesome /r/unixporn</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#aup-navbar-collapse">
+    <nav class="navbar navbar-expand-md bg-primary navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/">Awesome /r/unixporn</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div id="aup-navbar-collapse" class="collapse navbar-collapse">
+        <div id="navbar-collapse" class="collapse navbar-collapse">
           <div class="navbar-nav ml-auto">
-            <a class="nav-item nav-link" href="/" data-toggle="collapse" data-target="#aup-navbar-collapse">Compare</a>
-            <a class="nav-item nav-link" href="/leaderboard" data-toggle="collapse" data-target="#aup-navbar-collapse">Leaderboard</a>
+            <a class="nav-item nav-link active" href="/" data-toggle="collapse" data-target="#navbar-collapse">Compare</a>
+            <a class="nav-item nav-link" href="/leaderboard" data-toggle="collapse" data-target="#navbar-collapse">Leaderboard</a>
           </div>
         </div>
       </div>
     </nav>
-    <main id="aup-main-content" class="flex-grow-1">
-      <section id="aup-hero-section">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <h1>Which one is hotter?</h1>
-            </div>
-            <div class="col-md-6">
-              <a href="#">
-                <img src="https://i.redd.it/ms8l8m4ha6w41.png" class="img-fluid">
-              </a>
-            </div>
-            <div class="col-md-6">
-              <a href="#">
-                <img src="https://i.redd.it/vnyuv1v4a8w41.png" class="img-fluid">
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-    <footer id="aup-footer" class="bg-primary text-light">
+    <main id="main-content" class="flex-grow-1">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <p>Created by: Jukka Pajarinen</p>
+            <h1>Which one is hotter?</h1>
+          </div>
+          <div class="col-md-6">
+            <a href="/">
+              <img src="@(urls[0])" alt="Please, refresh the page." class="img-fluid">
+            </a>
+          </div>
+          <div class="col-md-6">
+            <a href="/">
+              <img src="@(urls[1])" alt="Please, refresh the page." class="img-fluid">
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer id="footer-content" class="bg-primary text-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <p>
+              Open source: <a class="text-light" href="https://github.com/jukkapajarinen/AwesomeUnixporn" target="_blank">GitHub</a><br>
+              Built by: <a class="text-light" href="https://github.com/jukkapajarinen" target="_blank">Jukka Pajarinen</a>
+            </p>
           </div>
         </div>
       </div>

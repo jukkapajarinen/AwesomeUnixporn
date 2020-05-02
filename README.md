@@ -1,6 +1,6 @@
 # Awesome Unixporn
 
-ASP.NET, Vue, MariaDB based Web-application to rate UNIX setups.
+ASP.NET, Razor, EntityFramework and MariaDB based Web-application to compare UNIX setups.
 
 ## License
 
