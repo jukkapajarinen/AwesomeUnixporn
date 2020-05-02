@@ -31,11 +31,11 @@ namespace Robin
                             CreatedUtc = post.CreatedUtc,
                             AddedUtc = DateTime.UtcNow.Ticks
                         });
-                        Console.WriteLine("Added: " + post.Title);
+                        Console.WriteLine("[" + DateTime.Now + "] Added: " + post.Title);
                     }
                     else
                     {
-                        Console.WriteLine("Skipped: " + post.Title);
+                        Console.WriteLine("[" + DateTime.Now + "] Skipped: " + post.Title);
                     }
                 }
             }

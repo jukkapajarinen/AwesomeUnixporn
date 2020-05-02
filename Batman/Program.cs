@@ -3,6 +3,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Batman
 {
@@ -32,6 +33,10 @@ namespace Batman
                 })
                 .ConfigureServices(app => {
                     app.AddRazorPages().WithRazorPagesRoot(razorRoot);
+                })
+                .ConfigureLogging(app => {
+                    app.ClearProviders();
+                    app.AddConsole();
                 });
 
             Console.WriteLine("Starting self-hosted Batman via Kestrel.");
