@@ -1,5 +1,3 @@
-using System;
-
 namespace Robin
 {
     public class Rating

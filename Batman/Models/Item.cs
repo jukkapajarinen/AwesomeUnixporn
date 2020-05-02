@@ -1,5 +1,3 @@
-using System;
-
 namespace Batman
 {
     public class Item

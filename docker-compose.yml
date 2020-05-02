@@ -10,7 +10,6 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - db-data:/var/lib/mysql
       - $PWD/Database:/docker-entrypoint-initdb.d/
     restart: always
     environment:
@@ -25,7 +24,7 @@ services:
     networks:
       - gotham-city-network
     ports:
-      - 8000:80
+      - 8080:80
     environment:
       PMA_HOST: ${DB_HOST}
       PMA_USER: ${DB_USER}
@@ -41,13 +40,15 @@ services:
     networks:
       - gotham-city-network
     ports:
-      - "5000:80"
+      - "80:80"
     environment:
       DB_HOST: ${DB_HOST}
       DB_PORT: ${DB_PORT}
       DB_DATABASE: ${DB_DATABASE}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
+      BATMAN_HOST: ${BATMAN_HOST}
+      BATMAN_PORT: ${BATMAN_PORT}
     depends_on:
       - mariadb
 
@@ -66,9 +67,6 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
     depends_on:
       - mariadb
-
-volumes:
-  db-data:
 
 networks:
   gotham-city-network:
