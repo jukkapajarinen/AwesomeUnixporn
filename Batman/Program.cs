@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Batman
 {
@@ -13,14 +10,27 @@ namespace Batman
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
-        }
+            string webRoot = Directory.GetCurrentDirectory() + "/Public";
+            string contentRoot = Directory.GetCurrentDirectory();
+            string razorRoot = "/Views";
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
+            IWebHostBuilder webApplication = new WebHostBuilder()
+                .UseKestrel()
+                .UseWebRoot(webRoot)
+                .UseContentRoot(contentRoot)
+                .UseUrls("http://localhost:5000")
+                .Configure(app => {
+                    app.UseStaticFiles();
+                    app.UseRouting();
+                    app.UseEndpoints(ep => ep.MapRazorPages());
+                    app.UseStatusCodePagesWithRedirects("/");
+                })
+                .ConfigureServices(app => {
+                    app.AddRazorPages().WithRazorPagesRoot(razorRoot);
                 });
+
+            Console.WriteLine("Starting self-hosted Batman via Kestrel.");
+            webApplication.Build().Run();
+        }
     }
 }
